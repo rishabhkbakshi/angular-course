@@ -1,0 +1,52 @@
+<button mat-button>Basic</button>
+<button mat-flat-button color="warn">Primary</button>
+
+
+<mat-toolbar>
+  <button mat-button color="accent">Home</button>
+  <button mat-button color="accent">Login</button>
+  <button mat-button color="accent">Contact Us</button>
+</mat-toolbar>
+
+
+
+<p>
+  Default appearance:
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="bold">Bold</mat-button-toggle>
+    <mat-button-toggle value="italic">Italic</mat-button-toggle>
+    <mat-button-toggle value="underline">Underline</mat-button-toggle>
+  </mat-button-toggle-group>
+</p>
+
+<p>
+  Legacy appearance:
+  <mat-button-toggle-group appearance="legacy" name="fontStyle" style="background-color: black;"
+    aria-label="Font Style">
+    <mat-button-toggle value="bold">Bold</mat-button-toggle>
+    <mat-button-toggle value="italic">Italic</mat-button-toggle>
+    <mat-button-toggle value="underline">Underline</mat-button-toggle>
+  </mat-button-toggle-group>
+</p>
+
+
+<mat-card fxLayout="column" style="background-color: rgb(201, 140, 140);">
+  <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start start">
+    <mat-form-field fxFlex="30%">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="First Name" value="RIshabh">
+    </mat-form-field>
+    <mat-form-field fxFlex="30%">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Last Name" value="Bakshi">
+    </mat-form-field>
+    <mat-form-field fxFlex="40%">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" value="Bakshi@gmail.com">
+    </mat-form-field>
+  </div>
+  <mat-form-field fxLayoutAlign="start start">
+    <mat-label>Last Name</mat-label>
+    <input matInput placeholder="Designation" value="QA">
+  </mat-form-field>
+</mat-card>

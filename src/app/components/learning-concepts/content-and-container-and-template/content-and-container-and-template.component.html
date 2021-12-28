@@ -1,0 +1,31 @@
+<h1>Rishabh H1</h1>
+<ng-content select="[t1], [t2], [t3]"></ng-content>
+<br>
+<ng-container *ngFor="let item of x; let first = first; let last = last; let even = even ; let odd=odd">
+    -6container with template with ngfor
+    <h1>
+        {{first}} => {{item}} {{last}} {{odd}} {{even}}
+    </h1>
+</ng-container>
+
+<span *ngIf="x[5] === 6 else template">
+  -5container with template with ngif
+</span>
+<br>
+
+<span>
+  -4container with template
+  <ng-container *ngTemplateOutlet="template">
+  </ng-container>
+</span>
+
+<ng-template #template>
+    <h1>Ram Prakash Bhadu</h1>
+</ng-template>
+
+<ng-template ngFor let-item [ngForOf]="x" let-i="index">
+    <li>-3{{x[i]}}</li>
+</ng-template>
+
+<input #ref1 type="text" [(ngModel)]="firstExample" />
+<span *ngIf="true">Value: {{ ref1.value }}</span>
