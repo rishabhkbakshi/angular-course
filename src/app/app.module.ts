@@ -9,7 +9,6 @@ import { MatModuleModule } from './mat-module/mat-module.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent } from './container/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
 import { SignUpComponent } from './container/signup/signup.component';
 import { ForgotPasswordComponent } from './container/forgot-password/forgot-password.component';
 import { VerificationComponent } from './container/verification/verification.component';
@@ -66,13 +65,7 @@ import { NotFoundComponent } from './container/not-found/not-found.component';
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LearningConceptsModule,
-    ToastrModule.forRoot({
-      timeOut: 10000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-      enableHtml: true
-    })
+    LearningConceptsModule
   ],
   providers: [
     AuthGuard,

@@ -12,7 +12,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatModuleModule } from 'src/app/mat-module/mat-module.module';
-import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,13 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatModuleModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    ToastrModule.forRoot({
-      timeOut: 10000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-      enableHtml: true
-    })
+    HttpClientModule
    ],
   exports: [
     AbcComponent,

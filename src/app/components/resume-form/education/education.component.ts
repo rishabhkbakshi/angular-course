@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
+import { AlertService } from 'src/app/services/alert-service.service';
 import { ApiServices } from 'src/app/services/api-services.service';
 import { EducationFormComponent } from '../resume-dialogs/education-form/education-form.component';
 
@@ -15,7 +15,7 @@ export class EducationComponent implements OnInit {
 
   constructor(private matDialog: MatDialog,
     private apiService: ApiServices,
-    private toastr: ToastrService) { }
+    private alertService: AlertService) { }
 
   displayedColumns: string[] = ['school_name', 'month-year', 'city-state', 'field-degree', 'percentage', 'action'];
 
@@ -47,7 +47,7 @@ export class EducationComponent implements OnInit {
 
   delete(educationId: string) {
     this.apiService.deleteEducation(educationId).subscribe((data) => {
-      this.toastr.success('Education deleted sucessfully');
+      this.alertService.success('Education deleted sucessfully');
     })
   }
 }

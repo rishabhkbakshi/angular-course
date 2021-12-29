@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { AlertService } from 'src/app/services/alert-service.service';
 import { ApiServices } from 'src/app/services/api-services.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private apiService: ApiServices,
-    private toastrSer: ToastrService,
+    private alertService: AlertService,
     private router: Router
   ) { }
 
@@ -35,11 +35,11 @@ export class SignUpComponent implements OnInit {
     if (this.signUpForm.valid) {
       this.isLoader = true;
       this.apiService.signup(this.signUpForm.value).subscribe((response) => {
-        this.toastrSer.success('user is created sucessfully');
+        this.alertService.success('user is created sucessfully');
         this.isLoader = false;
         this.router.navigate(['']);
       }, (error) => {
-        this.toastrSer.error(error.message);
+        this.alertService.error(error.message);
         this.isLoader = false;
       })
     }

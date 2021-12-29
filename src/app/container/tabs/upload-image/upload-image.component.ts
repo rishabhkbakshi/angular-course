@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { AlertService } from 'src/app/services/alert-service.service';
 import { ApiServices } from 'src/app/services/api-services.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   @Input() resume: any;
 
   constructor(
-    private toastr: ToastrService,
+    private alertService: AlertService,
     private apiService: ApiServices
   ) {
 
@@ -48,14 +48,14 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
     this.file = value.target.files[0];
     if (this.file) {
       if (this.file.size > this.MAX_IMAGE_SIZE) {
-        return this.toastr.error("File should be less than 1mb");
+        return this.alertService.error("File should be less than 1mb");
       }
       if (this.file.type === ('image/jpeg' || 'image/jpg' || 'image/png' || 'image/JPG')) {
         this.isSelected = true;
         this.selectLabel = 'cached';
         this.previewImage.nativeElement.src = window.URL.createObjectURL(this.file);
       } else {
-        this.toastr.error("Image must be of type of jpeg, jpg, png and JPG");
+        this.alertService.error("Image must be of type of jpeg, jpg, png and JPG");
       }
     }
   }
@@ -68,7 +68,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
     this.loading = true;
     this.apiService.saveOrDelete(this.file, this.resume._id).subscribe((data: any) => {
       this.isUploaded = true;
-      this.toastr.success('Image uploaded successfully');
+      this.alertService.success('Image uploaded successfully');
       this.url = data.image_url;
       this.loading = false;
     }, (error) => {
@@ -79,7 +79,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   onDelete() {
     this.loading = true;
     this.apiService.deleteImage(this.resume._id).subscribe((data: any) => {
-      this.toastr.success('Image deleted successfully');
+      this.alertService.success('Image deleted successfully');
       this.isUploaded = false;
       this.isSelected = false;
       this.url = '';

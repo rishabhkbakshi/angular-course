@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { AlertService } from 'src/app/services/alert-service.service';
 import { ApiServices } from 'src/app/services/api-services.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   constructor(
     private apiService: ApiServices,
-    private toastrSer: ToastrService,
+    private alertService: AlertService,
     private router: Router
   ) { }
 
@@ -37,10 +37,10 @@ export class ForgotPasswordComponent implements OnInit {
         this.forgotPasswordForm.controls["code"].setValidators([Validators.required]);
         this.forgotPasswordForm.controls["new_password"].setValidators([Validators.required]);
         this.forgotPasswordForm.controls["confirm_password"].setValidators([Validators.required]);
-        this.toastrSer.success('Email is sent sucessfully to this => ' + this.forgotPasswordForm.get('email')?.value);
+        this.alertService.success('Email is sent sucessfully to this => ' + this.forgotPasswordForm.get('email')?.value);
         this.isLoader = false;
       }, (error) => {
-        this.toastrSer.error(error.message);
+        this.alertService.error(error.message);
         this.isLoader = false;
       })
     }
@@ -54,11 +54,11 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.forgotPasswordForm.valid) {
       this.isLoader = true;
       this.apiService.resetPassword(this.forgotPasswordForm.value).subscribe((response) => {
-        this.toastrSer.success('Password reset sucessfully');
+        this.alertService.success('Password reset sucessfully');
         this.goToLogin();
         this.isLoader = false;
       }, (error) => {
-        this.toastrSer.error(error.message);
+        this.alertService.error(error.message);
         this.isLoader = false;
       })
     }

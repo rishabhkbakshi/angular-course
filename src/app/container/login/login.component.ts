@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap, takeWhile } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
+import { AlertService } from 'src/app/services/alert-service.service';
 import { ApiServices } from 'src/app/services/api-services.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private apiService: ApiServices,
-    private toastrSer: ToastrService,
+    private alertService: AlertService,
     private router: Router
   ) {
     this.loginForm = new FormGroup({
@@ -92,10 +92,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     request$.pipe(takeWhile(() => this.isAlive),
       filter(res => !!res)).subscribe((data) => {
         this.isLoader = false;
-        this.toastrSer.success('user is logged-in sucessfully');
+        this.alertService.success('user is logged-in sucessfully');
         this.router.navigate(['verify'], { queryParams: { email: data.email } });
       }, (error) => {
-        this.toastrSer.error(error.message);
+        this.alertService.error(error.message);
         this.isLoader = false;
       });
   }

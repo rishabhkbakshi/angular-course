@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from "rxjs/operators";
 import { AuthUtils } from '../components/utility/auth-utils';
 import { User } from '../models/user.model';
+import { AlertService } from './alert-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ import { User } from '../models/user.model';
 export class HttpService {
   private static authTokenKey = 'auth_token';
 
-  constructor(private httpClient: HttpClient, private toastr: ToastrService, private router: Router) { }
+  constructor(private httpClient: HttpClient, private alertService: AlertService, private router: Router) { }
   baseUrl: string = 'http://localhost:5000/api';
 
   get(url: string, paramData?: any): Observable<any> {
@@ -45,20 +45,20 @@ export class HttpService {
 
   private errorHandler(response: any) {
     if (response.error.isTrusted === true) {
-      this.toastr.error('Please connect to the internet');
+      this.alertService.error('Please connect to the internet');
     } else {
       if (response.status == 404) {
-        this.toastr.error('Error (404): ' + response.message);
+        this.alertService.error('Error (404): ' + response.message);
       } else if (response.status == 400) {
-        this.toastr.error('Error (400): ' + response.message);
+        this.alertService.error('Error (400): ' + response.message);
       } else if (response.status == 500) {
-        this.toastr.error('Error (500): ' + response.message);
+        this.alertService.error('Error (500): ' + response.message);
       } else if (response.status == 504) {
-        this.toastr.error('Error (504): ' + response.message);
+        this.alertService.error('Error (504): ' + response.message);
       } else if (response.status == 422) {
-        this.toastr.error('Error (422): ' + response.message);
+        this.alertService.error('Error (422): ' + response.message);
       } else {
-        this.toastr.error('Error in the request');
+        this.alertService.error('Error in the request');
       }
     }
     return throwError(response.error);

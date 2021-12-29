@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { AlertService } from 'src/app/services/alert-service.service';
 import { ApiServices } from 'src/app/services/api-services.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class UploadYoutubeLinkComponent implements OnInit, AfterViewInit {
 
   constructor(
     private apiService: ApiServices,
-    private toastr: ToastrService
+    private alertService: AlertService
   ) {
     this.youtubeForm = new FormGroup({
       video_url: new FormControl('', [Validators.required, Validators.pattern(this.YoutubeURLRegex)])
@@ -38,7 +38,7 @@ export class UploadYoutubeLinkComponent implements OnInit, AfterViewInit {
       this.apiService.addVideo(this.resume._id, this.youtubeForm.value).subscribe((data) => {
         this.loading = false;
         const message = this.isVideoUploaded ? 'Video updated successfully' :'Video added successfully'
-        this.toastr.success(message);
+        this.alertService.success(message);
         this.isVideoUploaded = true;
         // this.uploadAgain = false;
       }, (error) => {
@@ -46,7 +46,7 @@ export class UploadYoutubeLinkComponent implements OnInit, AfterViewInit {
         console.log(error);
       })
     } else {
-      this.toastr.error('Form is not valid');
+      this.alertService.error('Form is not valid');
     }
 
   }
