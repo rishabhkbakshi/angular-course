@@ -13,8 +13,7 @@ export class AlertService {
   }
 
   error(message: string, duration = 3500) {
-    this.snackBar.open(message, '', {duration, panelClass: ['alert', 'alert-error']});
-
+    this.snackBar.open(message ? message : 'Please connect to the internet', '', {duration, panelClass: ['alert', 'alert-error']});
   }
 
   message(message: string, duration = 3500) {
