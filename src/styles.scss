@@ -53,3 +53,19 @@ body {
     transition: opacity .35s ease;
     color: white;
 }
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d0e9c6;
+  color: #3c763d;
+}
+
+.alert-error {
+  background-color: #f2dede;
+  border-color: #ebcccc;
+  color: #a94442;
+}
+
+.alert .mat-simple-snackbar {
+  justify-content: center;
+}
