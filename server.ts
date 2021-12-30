@@ -31,6 +31,11 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
+    const path = join(distFolder, 'index.html');
+    if (req.url.includes('dashboard')) {
+      res.sendFile(path);
+      return;
+    }
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 

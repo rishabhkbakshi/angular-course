@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { AuthUtils } from '../components/utility/auth-utils';
@@ -10,11 +11,12 @@ import { ApiServices } from '../services/api-services.service';
 export class AnonGuard implements CanActivate {
 
   constructor(private router: Router,
-    private apiService: ApiServices) {
+    private apiService: ApiServices,
+    @Inject(PLATFORM_ID) private plateformId: any) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-    const isLoggedIn = !AuthUtils.getAuthToken();
+    const isLoggedIn = isPlatformBrowser(this.plateformId) ? !AuthUtils.getAuthToken() : true;
     if (isLoggedIn) {
       return true;
     } else {

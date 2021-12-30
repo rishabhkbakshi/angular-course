@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from "rxjs/operators";
@@ -13,7 +14,7 @@ import { AlertService } from './alert-service.service';
 export class HttpService {
   private static authTokenKey = 'auth_token';
 
-  constructor(private httpClient: HttpClient, private alertService: AlertService, private router: Router) { }
+  constructor(private httpClient: HttpClient, private alertService: AlertService, private router: Router, @Inject(PLATFORM_ID) private plateformId: any) { }
   baseUrl: string = 'http://localhost:5000/api';
 
   get(url: string, paramData?: any): Observable<any> {
@@ -38,9 +39,11 @@ export class HttpService {
   }
 
   private getAuthHeaders() {
-    return {
-      Authorization: `Bearer ${AuthUtils.getAuthToken()}`
-    };
+    if (isPlatformBrowser(this.plateformId)) {
+      return {
+        Authorization: `Bearer ${AuthUtils.getAuthToken()}`
+      };
+    }
   }
 
   private errorHandler(response: any) {

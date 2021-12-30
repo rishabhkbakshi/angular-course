@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthUtils } from '../components/utility/auth-utils';
@@ -10,7 +11,7 @@ import { HttpService } from './http-service.service';
 })
 export class ApiServices {
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, @Inject(PLATFORM_ID) private plateformId: any) { }
 
 
   // getUsers(param?: any) {
@@ -20,9 +21,17 @@ export class ApiServices {
 
   loginAndSetToken(data: { email: string, password: string }): Observable<User> {
     return this.httpService.get('/user/login', data).pipe(map(res => {
-      AuthUtils.setAuthToken(res.token);
+      if (isPlatformBrowser(this.plateformId)) {
+        AuthUtils.setAuthToken(res.token);
+      }
       return res.user;
     }));
+  }
+
+  logout() {
+    if (isPlatformBrowser(this.plateformId)) {
+      AuthUtils.removeAuthToken();
+    }
   }
 
   sendResetPasswordEmail(data: { email: string }): Observable<any> {
