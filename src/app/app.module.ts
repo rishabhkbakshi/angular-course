@@ -57,7 +57,7 @@ import { NotFoundComponent } from './container/not-found/not-found.component';
     NotFoundComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
