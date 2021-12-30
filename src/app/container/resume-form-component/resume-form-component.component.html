@@ -1,0 +1,25 @@
+<mat-accordion fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <h1>Enter details which you want to see on your resume</h1>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Contact Details
+      </mat-panel-title>
+      <mat-panel-description>
+        Enter your contact details
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-contact-details [contactDetails]="resume.contact_details" [resumeId]="resume._id"></app-contact-details>
+  </mat-expansion-panel>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Education
+      </mat-panel-title>
+      <mat-panel-description>
+        Enter your qualifications
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-education [educations]="resume.education" [resumeId]="resume._id"></app-education>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+}
+
+.center {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+}
+
+mat-spinner {
+    margin-top: 10px;
+}
+
+mat-card {
+    width: 35rem;
+    height: auto;
+    mat-form-field {
+        width: 30rem;
+    }
+}

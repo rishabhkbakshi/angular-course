@@ -1,0 +1,34 @@
+<div *ngIf="!loading">
+  <form *ngIf="!isVideoUploaded || uploadAgain" [formGroup]="youtubeForm" fxLayout="column"
+    fxLayoutAlign="center center" (ngSubmit)="uploadVideo()">
+    <div style="margin-bottom: 3rem; margin-top: 3rem" fxLayout="column" fxLayoutAlign="start center"
+      fxLayoutGap="30px">
+      <h1 style="font-weight: bolder; font-size: 2rem">
+        <mat-icon>cloud_upload</mat-icon>
+        Import Video from YOUTUBE URL
+      </h1>
+      <mat-form-field>
+        <input matInput formControlName="video_url" type="text" placeholder="Enter youtube Video Url">
+        <mat-error>
+          Provide Youtube Video URL
+        </mat-error>
+      </mat-form-field>
+      <button style="color: blue" type="submit" mat-raised-button>
+        Import
+      </button>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" style="height: 100vh">
+      <mat-spinner *ngIf="loading"></mat-spinner>
+    </div>
+
+  </form>
+  <div *ngIf="isVideoUploaded && !uploadAgain" style="margin-bottom: 3rem; margin-top: 3rem" fxLayout="column"
+    fxLayoutAlign="start center" fxLayoutGap="30px">
+    <p style="font-weight: bolder; font-size: 2rem">
+      You have already uploaded a video
+    </p>
+    <button style="color: blue" type="button" mat-raised-button (click)="this.uploadAgain = true">
+      Update Video
+    </button>
+  </div>
+</div>
